@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!--<parent>
+	    <artifactId>pom-aplicaciones</artifactId>
+	    <groupId>mx.ine.rfe.siirfe.pom</groupId>
+	    <version>6.6.4.2.24-SNAPSHOT</version>
+    </parent>-->
+    <groupId>com.mexcrisoft.anyways.</groupId>
+    <version>${revision.tramites.mre.version}</version>
+    <artifactId>revision-tramites-mre</artifactId>
+    <packaging>pom</packaging>
+    <name>revision-tramites-mre</name>
+    <description>
+        Aplicacion encargada de subsanar los datos y medios de identificacion para los tramites del extranjero.
+    </description>
+    <properties>
+    	<revision.tramites.mre.version>0.0.1-SNAPSHOT</revision.tramites.mre.version>
+    	<!--<plantilla.web.extjs.version>6.6.0.0.4-SNAPSHOT</plantilla.web.extjs.version>-->
+    </properties>
+    <modules>
+        <module>anyways-app-modelo</module>
+        <!--<module>revision-tramites-mre-dao</module>-->
+        <module>anyways-app-api</module>
+        <module>anyways-app-web</module>
+        <module>revision-tramites-mre-ear</module>
+    </modules>
+</project>
