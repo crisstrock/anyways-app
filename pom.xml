@@ -12,7 +12,7 @@
     	<anyways.app.version>0.0.1-SNAPSHOT</anyways.app.version>
     </properties>
     <modules>
-        <module>anyways-app-modelo</module>
+        <module>anyways-app-model</module>
         <module>anyways-app-dao</module>
         <module>anyways-app-api</module>
         <module>anyways-app-web</module>

@@ -16,8 +16,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mexcrisoft.anyways.entidad.Customer;
 import com.mexcrisoft.anyways.forms.CustomerDTO;
-import com.mexcrisoft.anyways.model.Customer;
 import com.mexcrisoft.anyways.service.CustomerService;
 
 /**

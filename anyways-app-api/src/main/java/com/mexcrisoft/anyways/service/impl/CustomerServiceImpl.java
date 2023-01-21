@@ -7,7 +7,6 @@ package com.mexcrisoft.anyways.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mexcrisoft.anyways.entidad.Customer;
 import com.mexcrisoft.anyways.service.CustomerService;
@@ -30,7 +29,6 @@ public class CustomerServiceImpl implements CustomerService {
      * anyways.model.Customer)
      */
     @Override
-    @Transactional
     public Customer saveCustomer(Customer customer) {
         System.out.println("Guardando cliente: " + customer.getNombre() + " en la base de datos");
         return null;

@@ -24,8 +24,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>5.3.25</version>
+			<artifactId>spring-web</artifactId>
+			<version>5.3.24</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mexcrisoft</groupId>
+			<artifactId>anyways-app-dao</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 </project>
