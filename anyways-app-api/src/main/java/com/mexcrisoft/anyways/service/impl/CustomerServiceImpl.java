@@ -6,12 +6,10 @@ package com.mexcrisoft.anyways.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mexcrisoft.anyways.model.Customer;
-import com.mexcrisoft.anyways.repository.CustomerRepository;
+import com.mexcrisoft.anyways.entidad.Customer;
 import com.mexcrisoft.anyways.service.CustomerService;
 
 /**
@@ -22,8 +20,6 @@ import com.mexcrisoft.anyways.service.CustomerService;
  */
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    @Autowired
-    private CustomerRepository customerRepository;
 
     /*
      * La documentación de este método se encuentra en la clase o interface que lo
@@ -37,8 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Customer saveCustomer(Customer customer) {
         System.out.println("Guardando cliente: " + customer.getNombre() + " en la base de datos");
-        Customer cliente = customerRepository.save(customer);
-        return cliente;
+        return null;
     }
 
     /*
@@ -49,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+        return null;
     }
 
 

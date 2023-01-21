@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="anyways-app-web/target/anyways-app/WEB-INF/lib/spring-web-5.3.24.jar"/>
 	<classpathentry kind="lib" path="anyways-app-web/target/anyways-app/WEB-INF/lib/spring-webmvc-5.3.24.jar"/>
 	<classpathentry kind="lib" path="anyways-app-web/target/anyways-app/WEB-INF/lib/validation-api-2.0.1.Final.jar"/>
+	<classpathentry kind="src" path="/anyways-app-model"/>
 	<classpathentry kind="output" path="anyways-app-web/target/anyways-app/WEB-INF/classes"/>
 </classpath>

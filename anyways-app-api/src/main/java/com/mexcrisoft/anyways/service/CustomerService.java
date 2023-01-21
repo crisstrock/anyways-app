@@ -6,7 +6,7 @@ package com.mexcrisoft.anyways.service;
 
 import java.util.List;
 
-import com.mexcrisoft.anyways.model.Customer;
+import com.mexcrisoft.anyways.entidad.Customer;
 
 /**
  * Servicio de clientes

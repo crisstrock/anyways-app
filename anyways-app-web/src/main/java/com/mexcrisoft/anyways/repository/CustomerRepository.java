@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Repository;
 
-import com.mexcrisoft.anyways.model.Customer;
+import com.mexcrisoft.anyways.entidad.Customer;
 
 /**
  * Repositorio de clientes
