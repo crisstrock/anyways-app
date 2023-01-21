@@ -6,11 +6,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mexcrisoft</groupId>
-	<artifactId>anyways-app</artifactId>
+	<artifactId>anyways-app-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>anyways-app Maven Webapp</name>
+	<name>anyways-app-web Maven Webapp</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
