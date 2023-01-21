@@ -9,7 +9,6 @@
 		<artifactId>anyways-app</artifactId>
 		<version>${anyways.app.version}</version>
 	</parent>
-	<!--<groupId>com.mexcrisoft</groupId> -->
 	<artifactId>anyways-app-web</artifactId>
 	<name>anyways-app-web</name>
 	<!-- FIXME change it to the project's website -->
@@ -18,9 +17,9 @@
 
 	<properties>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.target>1.8</maven.compiler.target>-->
 		<navegadores.requeridos>
 			Firefox, Chrome
 		</navegadores.requeridos>
