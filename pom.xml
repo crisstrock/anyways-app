@@ -1,56 +1,38 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mexcrisoft</groupId>
-    <version>${anyways.app.version}</version>
-    <artifactId>anyways-app</artifactId>
-    <packaging>pom</packaging>
-    <name>anyways-app</name>
-    <description>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.mexcrisoft</groupId>
+	<version>${anyways.app.version}</version>
+	<artifactId>anyways-app</artifactId>
+	<packaging>pom</packaging>
+	<name>anyways-app</name>
+	<description>
         La aplicación se encarga de sumistrar información a los clientes.
     </description>
-    <properties>
-    	<anyways.app.version>0.0.1-SNAPSHOT</anyways.app.version>
-    </properties>
-    <modules>
-        <module>anyways-app-model</module>
-        <module>anyways-app-dao</module>
-        <module>anyways-app-api</module>
-        <module>anyways-app-web</module>
-        <module>anyways-app-ear</module>
-    </modules>
-    <build>
-		<plugins>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>flatten-maven-plugin</artifactId>
-				<!--<version>1.2.2</version> -->
-				<configuration>
-					<pomElements>
-						<repositories>flatten</repositories>
-					</pomElements>
-					<updatePomFile>true</updatePomFile>
-				</configuration>
-				<executions>
-					<!-- enable flattening -->
-					<execution>
-						<id>flatten</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>flatten</goal>
-						</goals>
-					</execution>
-					<!-- ensure proper cleanup -->
-					<execution>
-						<id>flatten.clean</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-	</build>
+	<properties>
+		<anyways.app.version>0.0.1-SNAPSHOT</anyways.app.version>
+	</properties>
+	<modules>
+		<module>anyways-app-model</module>
+		<module>anyways-app-dao</module>
+		<module>anyways-app-api</module>
+		<module>anyways-app-web</module>
+		<module>anyways-app-ear</module>
+	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.mexcrisoft</groupId>
+				<artifactId>anyways-app-api</artifactId>
+				<version>${anyways.app.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mexcrisoft</groupId>
+				<artifactId>anyways-app-web</artifactId>
+				<type>war</type>
+				<version>${anyways.app.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
