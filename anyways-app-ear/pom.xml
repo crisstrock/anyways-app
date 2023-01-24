@@ -26,6 +26,15 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.mexcrisoft</groupId>
+			<artifactId>anyways-app-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mexcrisoft</groupId>
+			<artifactId>anyways-app-web</artifactId>
+			<type>war</type>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -35,12 +44,13 @@
 				<artifactId>maven-ear-plugin</artifactId>
 				<version>2.10.1</version>
 				<configuration>
+					<version>7</version>
 					<generateApplicationXml>true</generateApplicationXml>
 					<modules>
 						<webModule>
 							<groupId>com.mexcrisoft</groupId>
 							<artifactId>anyways-app-web</artifactId>
-							<contextRoot>/anyways-app-web</contextRoot>
+							<!-- <contextRoot>/anyways-app-web</contextRoot> -->
 						</webModule>
 						<jarModule>
 							<groupId>com.mexcrisoft</groupId>
@@ -48,6 +58,7 @@
 						</jarModule>
 					</modules>
 					<defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
+					<skinnyWars>true</skinnyWars>
 				</configuration>
 			</plugin>
 		</plugins>

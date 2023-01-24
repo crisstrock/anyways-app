@@ -26,12 +26,11 @@ public class CustomerServiceImpl implements CustomerService {
      *
      * @see
      * com.mexcrisoft.anyways.service.CustomerService#saveCustomer(com.mexcrisoft.
-     * anyways.model.Customer)
+     * anyways.entidad.Customer)
      */
-    @Override
     public Customer saveCustomer(Customer customer) {
-        System.out.println("Guardando cliente: " + customer.getNombre() + " en la base de datos");
         return null;
+        // TODO [codificar el cuerpo del método]
     }
 
     /*
@@ -40,10 +39,11 @@ public class CustomerServiceImpl implements CustomerService {
      *
      * @see com.mexcrisoft.anyways.service.CustomerService#getAllCustomers()
      */
-    @Override
     public List<Customer> getAllCustomers() {
         return null;
+        // TODO [codificar el cuerpo del método]
     }
+
 
 
 }
