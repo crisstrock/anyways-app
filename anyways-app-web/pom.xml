@@ -17,18 +17,11 @@
 
 	<properties>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-		<!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>-->
-		<!--<navegadores.requeridos>
-			Firefox, Chrome
-		</navegadores.requeridos>
-		<navegadores.requeridos.imgs>
-			<![CDATA[
-				<img src="../imagenes/firefox.png">&nbsp;
-				<img src="../imagenes/chrome.png">&nbsp;
-			]]>
-		</navegadores.requeridos.imgs>-->
+		<!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+			<maven.compiler.source>1.8</maven.compiler.source> <maven.compiler.target>1.8</maven.compiler.target> -->
+		<!--<navegadores.requeridos> Firefox, Chrome </navegadores.requeridos> 
+			<navegadores.requeridos.imgs> <![CDATA[ <img src="../imagenes/firefox.png">&nbsp; 
+			<img src="../imagenes/chrome.png">&nbsp; ]]> </navegadores.requeridos.imgs> -->
 	</properties>
 
 	<dependencies>
