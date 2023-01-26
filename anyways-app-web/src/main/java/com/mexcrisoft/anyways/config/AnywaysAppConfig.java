@@ -25,9 +25,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -47,6 +49,14 @@ import com.mexcrisoft.anyways.formatters.FechaNacimientoFormatter;
 public class AnywaysAppConfig implements WebMvcConfigurer {
     @Autowired
     private Environment env;
+
+    @Bean
+    public WebContentInterceptor webContentInterceptor() {
+        WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
+        webContentInterceptor.setCacheSeconds(0);
+        webContentInterceptor.setCacheControl(CacheControl.noStore());
+        return webContentInterceptor;
+    }
 
     /**
      * Set up my view resolver

@@ -6,7 +6,6 @@ package com.mexcrisoft.anyways.config.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -47,16 +46,11 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
      * WebSecurityConfigurerAdapter#configure(org.springframework.security.config.
      * annotation.web.builders.HttpSecurity)
      */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-        .anyRequest()
-        .authenticated()
-        .and()
-        .formLogin()
-        .loginPage("/userLogin")
-        .loginProcessingUrl("/loginUser")
-            .permitAll();
-    }
+
+    /*
+     * @Override protected void configure(HttpSecurity http) throws Exception {
+     * http.authorizeRequests() .anyRequest() .authenticated() .and() .formLogin()
+     * .loginPage("/userLogin") .loginProcessingUrl("/loginUser") .permitAll(); }
+     */
 
 }
