@@ -23,6 +23,6 @@ public class LoginController {
      */
     @GetMapping("/userLogin")
     public String showUserLogin() {
-        return "users_views/login";
+        return "users_views/new_login";
     }
 }

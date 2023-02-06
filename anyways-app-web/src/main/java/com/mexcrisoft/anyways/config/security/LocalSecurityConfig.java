@@ -4,12 +4,15 @@
  */
 package com.mexcrisoft.anyways.config.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  * Configuración de la seguridad
@@ -46,11 +49,34 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
      * WebSecurityConfigurerAdapter#configure(org.springframework.security.config.
      * annotation.web.builders.HttpSecurity)
      */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+        .authorizeRequests()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .formLogin()
+        .loginPage("/userLogin")
+        .loginProcessingUrl("/loginProcessing")
+        .usernameParameter("username")
+        .passwordParameter("password")
+        .permitAll()
+        .and()
+        .exceptionHandling()
+            // .accessDeniedPage("/accessDenied.jsp")
+        .accessDeniedHandler(accessDeniedHandler());
+    }
 
-    /*
-     * @Override protected void configure(HttpSecurity http) throws Exception {
-     * http.authorizeRequests() .anyRequest() .authenticated() .and() .formLogin()
-     * .loginPage("/userLogin") .loginProcessingUrl("/loginUser") .permitAll(); }
+    /**
+     * Manejador de accesos denegados
+     * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
+     *             cristianruiz1195@gmail.com)
+     * @return objeto de tipo CustomAccessDeniedHandler
      */
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
 
 }
