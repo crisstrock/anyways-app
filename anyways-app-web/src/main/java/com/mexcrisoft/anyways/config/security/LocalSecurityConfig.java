@@ -62,10 +62,14 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
         .usernameParameter("username")
         .passwordParameter("password")
         .permitAll()
+            .and()
+            .logout()
+            .permitAll()
         .and()
         .exceptionHandling()
-            // .accessDeniedPage("/accessDenied.jsp")
+        .accessDeniedPage("/accessDenied.jsp")
         .accessDeniedHandler(accessDeniedHandler());
+
     }
 
     /**
