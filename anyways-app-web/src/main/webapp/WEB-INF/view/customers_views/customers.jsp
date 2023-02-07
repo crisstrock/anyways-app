@@ -16,6 +16,7 @@
 		<h1>Customers</h1>
 	</div>
 	<div class="container">
+	<a href="${ pageContext.request.contextPath }/">Home</a>
 		<form:form action="process_customer" method="get" modelAttribute="customerDTO">
 			<div class="mb-3">
 				<label for="firstName" class="form-label">Nombre</label>

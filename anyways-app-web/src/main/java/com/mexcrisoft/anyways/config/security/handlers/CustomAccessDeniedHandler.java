@@ -12,7 +12,7 @@
  * no deberá ser divulgada y solo se podrá utilizar de acuerdo
  * a los términos que determine el propio Instituto.
  */
-package com.mexcrisoft.anyways.config.security;
+package com.mexcrisoft.anyways.config.security.handlers;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 
 /**
  * TODO [Agregar documentacion de la clase]
@@ -33,13 +33,14 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  * @version 1.0
  * @since SIIRFE 6.3
  */
-public class CustomAccessDeniedHandler implements AccessDeniedHandler {
+public class CustomAccessDeniedHandler extends AccessDeniedHandlerImpl {
     public static final Logger LOG = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
 
     /* La documentación de este método se encuentra en la clase o interface que
      * lo declara  (non-Javadoc)
      * @see org.springframework.security.web.access.AccessDeniedHandler#handle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.access.AccessDeniedException)
      */
+    @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
         AccessDeniedException accessDeniedException) throws IOException, ServletException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -48,7 +49,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             System.out.println(
                 "User: " + auth.getName() + " attempted to access the protected URL: " + request.getRequestURI());
         }
-        response.sendRedirect(request.getContextPath() + "/accessDenied");
+        response.sendRedirect(request.getContextPath() + "/access-denied/");
     }
 
 }

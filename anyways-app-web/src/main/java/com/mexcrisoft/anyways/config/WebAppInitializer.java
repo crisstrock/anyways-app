@@ -38,14 +38,16 @@ public class WebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic myCustomDispatcherServlet =
             servletContext.addServlet("myDispatchetServlet", dispatcherServlet);
         myCustomDispatcherServlet.setLoadOnStartup(1);
-        myCustomDispatcherServlet.addMapping("/"); FilterRegistration.Dynamic
+        myCustomDispatcherServlet.addMapping("/");
+        FilterRegistration.Dynamic
         springSecurityFilterChain =
         servletContext.addFilter("springSecurityFilterChain", new
             DelegatingFilterProxy()); EnumSet<DispatcherType> enumSecurityFilterChain =
             EnumSet.of(DispatcherType.ERROR, DispatcherType.REQUEST,
                 DispatcherType.FORWARD);
             springSecurityFilterChain.addMappingForUrlPatterns(enumSecurityFilterChain,
-                true, "/*"); context.close();
+                true, "/*");
+            context.close();
     }
 
 

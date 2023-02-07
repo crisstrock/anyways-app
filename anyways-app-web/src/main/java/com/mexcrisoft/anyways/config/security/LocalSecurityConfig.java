@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+import com.mexcrisoft.anyways.config.security.handlers.CustomAccessDeniedHandler;
+
 /**
  * Configuración de la seguridad
  * @author Cristian E. Ruiz Aguilar(cristianruiz1195@gmail.com)
@@ -36,9 +38,9 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         UserBuilder users = User.withDefaultPasswordEncoder();
         auth.inMemoryAuthentication()
-        .withUser(users.username("crisstrock").password("cristian").roles("administrador"))
+        .withUser(users.username("crisstrock").password("cristian").roles("usuario", "administrador"))
         .withUser(users.username("chris").password("12345").roles("usuario"))
-        .withUser(users.username("yuyo").password("6789").roles("ayudante"));
+            .withUser(users.username("yuyi").password("123").roles("usuario", "ayudante"));
     }
 
     /*
@@ -51,10 +53,13 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-        .authorizeRequests()
-        .anyRequest()
-        .authenticated()
+        http.authorizeRequests()// .anyRequest().authenticated()
+        .antMatchers("/")
+        .hasRole("usuario")
+        .antMatchers("/customers/**")
+        .hasRole("ayudante")
+        .antMatchers("/licenses/**")
+        .hasRole("administrador")
         .and()
         .formLogin()
         .loginPage("/userLogin")
@@ -62,12 +67,12 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
         .usernameParameter("username")
         .passwordParameter("password")
         .permitAll()
-            .and()
-            .logout()
-            .permitAll()
+        .and()
+        .logout()
+        .permitAll()
         .and()
         .exceptionHandling()
-        .accessDeniedPage("/accessDenied.jsp")
+        // .accessDeniedPage("/accessDenied.jsp")
         .accessDeniedHandler(accessDeniedHandler());
 
     }
@@ -80,7 +85,9 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
+        CustomAccessDeniedHandler customAccessDeniedHandler = new CustomAccessDeniedHandler();
+        // customAccessDeniedHandler.setErrorPage("/acceso-denied/home");
+        return customAccessDeniedHandler;
     }
 
 }
