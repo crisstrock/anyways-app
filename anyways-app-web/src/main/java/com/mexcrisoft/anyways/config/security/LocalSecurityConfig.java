@@ -4,14 +4,15 @@
  */
 package com.mexcrisoft.anyways.config.security;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import com.mexcrisoft.anyways.config.security.handlers.CustomAccessDeniedHandler;
@@ -25,6 +26,8 @@ import com.mexcrisoft.anyways.config.security.handlers.CustomAccessDeniedHandler
 @Configuration
 @EnableWebSecurity
 public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private DataSource dataSource;
 
     /*
      * La documentación de este método se encuentra en la clase o interface que lo
@@ -36,11 +39,16 @@ public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        UserBuilder users = User.withDefaultPasswordEncoder();
-        auth.inMemoryAuthentication()
-        .withUser(users.username("crisstrock").password("cristian").roles("usuario", "administrador"))
-        .withUser(users.username("chris").password("12345").roles("usuario"))
-            .withUser(users.username("yuyi").password("123").roles("usuario", "ayudante"));
+        /*
+         * UserBuilder users = User.withDefaultPasswordEncoder();
+         * auth.inMemoryAuthentication()
+         * .withUser(users.username("crisstrock").password("cristian").roles("usuario",
+         * "administrador"))
+         * .withUser(users.username("chris").password("12345").roles("usuario"))
+         * .withUser(users.username("yuyi").password("123").roles("usuario",
+         * "ayudante"));
+         */
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     /*

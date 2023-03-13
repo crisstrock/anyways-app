@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>com.mexcrisoft</groupId>
 			<artifactId>anyways-app-model</artifactId>
-			<version>${project.version}</version>
+			<version>${anyways.app.version}</version>
 		</dependency>
 	</dependencies>
 

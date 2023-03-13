@@ -11,11 +11,15 @@
 	</parent>
 	<artifactId>anyways-app-api</artifactId>
 	<name>anyways-app-api</name>
-	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 	<packaging>jar</packaging>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.mexcrisoft</groupId>
+			<artifactId>anyways-app-dao</artifactId>
+			<version>${anyways.app.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -31,11 +35,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.framework.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mexcrisoft</groupId>
-			<artifactId>anyways-app-dao</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
