@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -11,19 +10,11 @@
 	</parent>
 	<artifactId>anyways-app-web</artifactId>
 	<name>anyways-app-web</name>
-	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 	<packaging>war</packaging>
-
 	<properties>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-		<!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
-			<maven.compiler.source>1.8</maven.compiler.source> <maven.compiler.target>1.8</maven.compiler.target> -->
-		<!--<navegadores.requeridos> Firefox, Chrome </navegadores.requeridos> 
-			<navegadores.requeridos.imgs> <![CDATA[ <img src="../imagenes/firefox.png">&nbsp; 
-			<img src="../imagenes/chrome.png">&nbsp; ]]> </navegadores.requeridos.imgs> -->
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.mexcrisoft</groupId>
@@ -78,23 +69,38 @@
 			<!-- lock down plugins versions to avoid using Maven defaults (may be 
 				moved to parent pom) -->
 			<plugins>
-				<!--<plugin> <artifactId>maven-clean-plugin</artifactId> <version>3.1.0</version> 
-					</plugin> -->
-				<!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
-				<!--<plugin> <artifactId>maven-resources-plugin</artifactId> <version>3.0.2</version> 
-					</plugin> <plugin> <artifactId>maven-compiler-plugin</artifactId> <version>3.8.0</version> 
-					</plugin> <plugin> <artifactId>maven-surefire-plugin</artifactId> <version>2.22.1</version> 
-					</plugin> -->
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>
+						maven-resources-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>
+						maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>
+						maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+				</plugin>
+				<plugin>
+					<groupId>
+						org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>3.3.2</version>
+					<version>
+						3.3.2</version>
 					<executions>
 						<execution>
 							<id>prepare-war</id>
 							<phase>prepare-package</phase>
 							<goals>
-								<goal>exploded</goal>
+								<goal>
+									exploded</goal>
 							</goals>
 						</execution>
 					</executions>

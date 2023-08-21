@@ -64,11 +64,19 @@
                   Devices
                 </a>
               </li>
-              <security:authorize access="hasRole('administrador')">
+              <security:authorize access="hasRole('ADMINISTRADOR')">
 	              <li class="nav-item">
 	                <a class="nav-link" href="${ pageContext.request.contextPath }/licenses/">
 	                  <span data-feather="bar-chart-2"></span>
 	                  Licenses
+	                </a>
+	              </li>
+              </security:authorize>
+              <security:authorize access="hasRole('ADMINISTRADOR')">
+	              <li class="nav-item">
+	                <a class="nav-link" href="${ pageContext.request.contextPath }/lend/">
+	                  <span data-feather="bar-chart-2"></span>
+	                  Lend
 	                </a>
 	              </li>
               </security:authorize>
