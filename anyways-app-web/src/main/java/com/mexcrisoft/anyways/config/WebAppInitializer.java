@@ -23,33 +23,28 @@ import com.mexcrisoft.anyways.config.security.LocalSecurityConfig;
  */
 public class WebAppInitializer implements WebApplicationInitializer {
 
-    /* La documentación de este método se encuentra en la clase o interface que
-     * lo declara  (non-Javadoc)
-     * @see org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet.ServletContext)
-     */
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        AnnotationConfigWebApplicationContext context = new
-            AnnotationConfigWebApplicationContext();
-        context.register(LocalSecurityConfig.class);
-        context.register(AnywaysAppConfig.class); // Create a dispatcher servlet object
-        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
-        // Registered the dispatcher servlet with the servlet context object
-        ServletRegistration.Dynamic myCustomDispatcherServlet =
-            servletContext.addServlet("myDispatchetServlet", dispatcherServlet);
-        myCustomDispatcherServlet.setLoadOnStartup(1);
-        myCustomDispatcherServlet.addMapping("/");
-        FilterRegistration.Dynamic
-        springSecurityFilterChain =
-        servletContext.addFilter("springSecurityFilterChain", new
-            DelegatingFilterProxy()); EnumSet<DispatcherType> enumSecurityFilterChain =
-            EnumSet.of(DispatcherType.ERROR, DispatcherType.REQUEST,
-                DispatcherType.FORWARD);
-            springSecurityFilterChain.addMappingForUrlPatterns(enumSecurityFilterChain,
-                true, "/*");
-            context.close();
-    }
-
+	/* La documentación de este método se encuentra en la clase o interface que
+	 * lo declara  (non-Javadoc)
+	 * @see org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet.ServletContext)
+	 */
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+		context.register(LocalSecurityConfig.class);
+		context.register(AnywaysAppConfig.class); // Create a dispatcher servlet object
+		DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+		// Registered the dispatcher servlet with the servlet context object
+		ServletRegistration.Dynamic myCustomDispatcherServlet =
+			servletContext.addServlet("myDispatchetServlet", dispatcherServlet);
+		myCustomDispatcherServlet.setLoadOnStartup(1);
+		myCustomDispatcherServlet.addMapping("/");
+		FilterRegistration.Dynamic springSecurityFilterChain =
+			servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
+		EnumSet<DispatcherType> enumSecurityFilterChain =
+			EnumSet.of(DispatcherType.ERROR, DispatcherType.REQUEST, DispatcherType.FORWARD);
+		springSecurityFilterChain.addMappingForUrlPatterns(enumSecurityFilterChain, true, "/*");
+		context.close();
+	}
 
 
 }

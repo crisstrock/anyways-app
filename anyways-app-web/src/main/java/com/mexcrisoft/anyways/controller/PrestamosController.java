@@ -3,6 +3,9 @@
  * Fecha de creación: Aug 20, 2023, 15:10:36 PM
  */
 package com.mexcrisoft.anyways.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Modelo para usuarios
  * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx, cristianruiz1195@gmail.com)

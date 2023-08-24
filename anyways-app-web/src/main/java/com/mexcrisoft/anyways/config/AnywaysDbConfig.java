@@ -1,0 +1,80 @@
+/**
+ * AnywaysDbConfig.java
+ * Fecha de creación: Aug 23, 2023, 11:30:19 PM
+ */
+package com.mexcrisoft.anyways.config;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * Data source para la base de datos de anyways
+ * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
+ *         cristianruiz1195@gmail.com)
+ * @version 1.0
+ * @since anyways 1.0.0
+ */
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(entityManagerFactoryRef = "anywaysEntityManagerFactory", transactionManagerRef = "anywaysTransactionManager", basePackages = {
+	"com.mexcrisoft.anyways.dao", "com.mexcrisoft.anyways.repository" })
+public class AnywaysDbConfig {
+	@Autowired
+	private Environment env;
+
+	/**
+	 * Asigna los valores para el data source del SCM
+	 * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
+	 *         cristianruiz1195@gmail.com)
+	 * @return DataSource
+	 */
+	@Bean(name = "anywaysDataSource")
+	DataSource scmDatasource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setUrl(env.getProperty("anyways.datasource.url"));
+		dataSource.setUsername(env.getProperty("anyways.datasource.username"));
+		dataSource.setPassword(env.getProperty("anyways.datasource.securityCode"));
+		dataSource.setDriverClassName(env.getProperty("anyways.datasource.driver-class-name"));
+		return dataSource;
+	}
+
+	/**
+	 * Administrador de entidad de contenedor local Bean de fábrica
+	 * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
+	 *         cristianruiz1195@gmail.com)
+	 * @return LocalContainerEntityManagerFactoryBean
+	 */
+	@Bean(name = "anywaysEntityManagerFactory")
+	LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+		em.setDataSource(scmDatasource());
+		em.setPackagesToScan("com.mexcrisoft.anyways.model");
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		em.setJpaVendorAdapter(vendorAdapter);
+		return em;
+	}
+
+	/**
+	 * Administrador de transacciones de la plataforma
+	 * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
+	 *         cristianruiz1195@gmail.com)
+	 * @return PlatformTransactionManager
+	 */
+	@Bean(name = "anywaysTransactionManager")
+	PlatformTransactionManager transactionManager() {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+		return transactionManager;
+	}
+}
