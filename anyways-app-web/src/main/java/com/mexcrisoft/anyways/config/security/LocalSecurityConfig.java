@@ -4,18 +4,19 @@
  */
 package com.mexcrisoft.anyways.config.security;
 
+import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.access.AccessDeniedHandler;
-
-import com.mexcrisoft.anyways.config.security.handlers.CustomAccessDeniedHandler;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Configuración de la seguridad
@@ -25,79 +26,51 @@ import com.mexcrisoft.anyways.config.security.handlers.CustomAccessDeniedHandler
  */
 @Configuration
 @EnableWebSecurity
-public class LocalSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DataSource dataSource;
+public class LocalSecurityConfig {
+	private Logger logger = LoggerFactory.getLogger(LocalSecurityConfig.class);
+	@Autowired
+	private DataSource dataSource;
 
-    /*
-     * La documentación de este método se encuentra en la clase o interface que lo
-     * declara (non-Javadoc)
-     *
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter#configure(org.springframework.security.config.
-     * annotation.authentication.builders.AuthenticationManagerBuilder)
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /*
-         * UserBuilder users = User.withDefaultPasswordEncoder();
-         * auth.inMemoryAuthentication()
-         * .withUser(users.username("crisstrock").password("cristian").roles("usuario",
-         * "administrador"))
-         * .withUser(users.username("chris").password("12345").roles("usuario"))
-         * .withUser(users.username("yuyi").password("123").roles("usuario",
-         * "ayudante"));
-         */
-        auth.jdbcAuthentication().dataSource(dataSource);
-    }
+	/**
+	 * Configuración global del administrador de construcción del autentificador
+	 * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
+	 *         cristianruiz1195@gmail.com)
+	 * @param auth
+	 * @throws Exception
+	 */
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		logger.debug("====> Método configureGlobal()");
+		auth.jdbcAuthentication().dataSource(dataSource);
+	}
 
-    /*
-     * La documentación de este método se encuentra en la clase o interface que lo
-     * declara (non-Javadoc)
-     *
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter#configure(org.springframework.security.config.
-     * annotation.web.builders.HttpSecurity)
-     */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()// .anyRequest().authenticated()
-        .antMatchers("/")
-        .hasRole("USUARIO")
-        .antMatchers("/")
-        .hasRole("ADMINISTRADOR")
-        .antMatchers("/customers/**")
-        .hasRole("AYUDANTE")
-        .antMatchers("/licenses/**")
-        .hasRole("ADMINISTRADOR")
-        .and()
-        .formLogin()
-        .loginPage("/userLogin")
-        .loginProcessingUrl("/loginProcessing")
-        .usernameParameter("username")
-        .passwordParameter("password")
-        .permitAll()
-        .and()
-        .logout()
-        .permitAll()
-        .and()
-        .exceptionHandling()
-        // .accessDeniedPage("/accessDenied.jsp")
-        .accessDeniedHandler(accessDeniedHandler());
-
-    }
-
-    /**
-     * Manejador de accesos denegados
-     * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
-     *             cristianruiz1195@gmail.com)
-     * @return objeto de tipo CustomAccessDeniedHandler
-     */
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        CustomAccessDeniedHandler customAccessDeniedHandler = new CustomAccessDeniedHandler();
-        // customAccessDeniedHandler.setErrorPage("/acceso-denied/home");
-        return customAccessDeniedHandler;
-    }
+	/**
+	 * Configuración del la securidad de filtros en cadena
+	 * @author Cristian E. Ruiz Aguilar (cristianruiz1195@gmail.com)
+	 * @param http
+	 * @return SecurityFilterChain
+	 * @throws Exception
+	 * @throws ServletException
+	 */
+	@Bean(name = "adminSupSecurityFilterChain")
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception, ServletException {
+		http.authorizeHttpRequests()
+			.requestMatchers(new AntPathRequestMatcher("/"))
+			.hasAnyRole("ADMINISTRADOR", "AYUDANTE", "USUARIO")
+			.requestMatchers(new AntPathRequestMatcher("/customers/**"))
+			.hasAnyRole("ADMINISTRADOR", "AYUDANTE")
+			.requestMatchers(new AntPathRequestMatcher("/licenses/**"))
+			.hasRole("ADMINISTRADOR")
+			.requestMatchers(new AntPathRequestMatcher("/prestamos/**"))
+			.hasRole("AYUDANTE")
+			.and()
+			.formLogin(login -> login.loginPage("/userLogin")
+				.loginProcessingUrl("/loginProcessing")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.permitAll())
+			.logout(logout -> logout.permitAll());
+		return http.build();
+	}
 
 }

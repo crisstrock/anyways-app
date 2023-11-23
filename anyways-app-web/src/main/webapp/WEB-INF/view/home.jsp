@@ -52,9 +52,9 @@
 									property="principal.username" />
 						</a></li>
 						<security:authorize
-							access="hasAnyRole('administrador','ayudante')">
+							access="hasAnyRole('ADMINISTRADOR','AYUDANTE')">
 							<li class="nav-item"><a class="nav-link"
-								href="${ pageContext.request.contextPath }/customers/home">
+								href="${ pageContext.request.contextPath }/customers/">
 									<span data-feather="users"></span> Customers
 							</a></li>
 						</security:authorize>
@@ -71,7 +71,7 @@
 						<security:authorize access="hasRole('ADMINISTRADOR')">
 							<li class="nav-item"><a class="nav-link"
 								href="${ pageContext.request.contextPath }/prestamos/"> <span
-									data-feather="bar-chart-2"></span> Lend
+									data-feather="bar-chart-2"></span>Prestamos
 							</a></li>
 						</security:authorize>
 

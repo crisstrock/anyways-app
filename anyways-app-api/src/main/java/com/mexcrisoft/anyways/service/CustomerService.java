@@ -5,8 +5,9 @@
 package com.mexcrisoft.anyways.service;
 
 import java.util.List;
+import java.util.Map;
 
-import com.mexcrisoft.anyways.entidad.Customer;
+import com.mexcrisoft.anyways.models.Customers;
 
 /**
  * Servicio de clientes
@@ -23,13 +24,13 @@ public interface CustomerService {
      * @param customer
      * @return Customer
      */
-    Customer saveCustomer(Customer customer);
+	Map<String, Object> saveCustomer(Customers customer);
 
     /**
      * Obtiene unalista con todos los clientes
      * @author Cristian E. Ruiz Aguilar (cristianruiz1195@gmail.com)
      * @return lista de clientes
      */
-    List<Customer> getAllCustomers();
+	List<Customers> getAllCustomers();
 
 }

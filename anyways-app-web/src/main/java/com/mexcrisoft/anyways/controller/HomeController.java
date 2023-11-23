@@ -26,16 +26,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-    /**
-     * TODO [Agregar documentacion al método]
-     * @author Cristian Ruiz Aguilar (cristian.ruiz@ine.mx,
-     *         cristianruiz1195@gmail.com)
-     * @return view
-     */
-    // @ResponseBody
-    @RequestMapping("/")
-    public String showHome() {
-        return "home";
-    }
+	/**
+	 * Inicio de la página
+	 * @author Cristian Ruiz Aguilar (cristian.ruiz@ine.mx,
+	 *         cristianruiz1195@gmail.com)
+	 * @return view
+	 */
+	@RequestMapping("/")
+	public String showHome() {
+		return "home";
+	}
 
 }

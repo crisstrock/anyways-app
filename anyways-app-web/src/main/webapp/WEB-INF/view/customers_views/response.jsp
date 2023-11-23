@@ -11,6 +11,7 @@
 		<h1>Response</h1>
 	</div>
 	<div class="container">
+	
 		<p>${ customer.nombre }</p>
 	</div>
 </body>

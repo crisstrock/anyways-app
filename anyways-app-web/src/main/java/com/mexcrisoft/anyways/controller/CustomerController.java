@@ -5,19 +5,23 @@
 package com.mexcrisoft.anyways.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mexcrisoft.anyways.entidad.Customer;
 import com.mexcrisoft.anyways.forms.CustomerDTO;
+import com.mexcrisoft.anyways.models.Customers;
 import com.mexcrisoft.anyways.service.CustomerService;
 
 /**
@@ -27,53 +31,70 @@ import com.mexcrisoft.anyways.service.CustomerService;
  * @since anyways 0.0.1-SNAPSHOT
  */
 @Controller
-@RequestMapping(value = "/customers/*")
+@RequestMapping("/customers")
 public class CustomerController {
-    @Autowired
-    private CustomerService customerService;
+	private Logger logger = LoggerFactory.getLogger(CustomerController.class);
+	@Autowired
+	private CustomerService customerService;
 
-    /**
-     * Mostrar la ventana de clientes
-     * @author Cristian E. Ruiz Aguilar (cristianruiz1195@gmail.com)
-     * @param customer
-     * @return view
-     */
-    @RequestMapping("/home")
-    public String showCustomer(@ModelAttribute("customerDTO") CustomerDTO customer) {
-        System.out.println("Cliente: " + customer.getFirstName());
-        return "customers_views/customers";
-    }
+	/**
+	 * Mostrar la ventana de clientes
+	 * @author Cristian E. Ruiz Aguilar (cristianruiz1195@gmail.com)
+	 * @param model
+	 * @return view
+	 */
+	@RequestMapping("/")
+	public String showCustomer(Model model) {
+		logger.debug("===> Método showCustomer");
+		List<Customers> customers = customerService.getAllCustomers();
+		model.addAttribute("customers", customers);
+		return "customers_views/customers";
+	}
 
-    /**
-     * TODO [Agregar documentacion al método]
-     * @author Cristian E. Ruiz Aguilar (cristian.ruiz@ine.mx,
-     *             cristianruiz1195@gmail.com)
-     * @param customer
-     * @param result
-     * @param model
-     * @return view
-     */
-    @RequestMapping("/process_customer")
-    public String processCustomer(@Valid @ModelAttribute("customerDTO") CustomerDTO customer, BindingResult result,
-        ModelMap model) {
-        if (result.hasErrors()) {
-            List<ObjectError> allErrors = result.getAllErrors();
-            for (ObjectError error : allErrors) {
-                System.out.println("Error: " + error.getDefaultMessage());
-            }
-            return "customers_views/customers";
-        }
-        Customer cliente = new Customer();
-        cliente.setNombre(customer.getFirstName());
-        cliente.setApellido(customer.getLastName());
-        cliente.setFechaNacimiento(customer.getFechaNacimiento());
-        cliente.setSex(customer.getGenero());
-        cliente.setRfc(customer.getRfc());
-        cliente.setCurp(customer.getCurp());
-        cliente = customerService.saveCustomer(cliente);
-        System.out.println("Devolviendo cliente: " + cliente.getNombre());
-        model.addAttribute("customer", cliente);
-        return "customers_views/response";
-    }
+	/**
+	 * Vista para agregar nuevo cliente
+	 * @author Cristian E. Ruiz Aguilar (cristianruiz1195@gmail.com)
+	 * @param customer
+	 * @return String
+	 */
+	@RequestMapping("/add-customer")
+	public String addCustomer(@ModelAttribute("customerDTO") CustomerDTO customer) {
+		logger.debug("===> Método showCustomer");
+		return "customers_views/add-customers";
+	}
+
+	/**
+	 * Procesamiento de clientes
+	 * @author Cristian E. Ruiz Aguilar (cristianruiz1195@gmail.com)
+	 * @param customer
+	 * @param result
+	 * @param model
+	 * @return view
+	 */
+	@RequestMapping("/process_customer")
+	public String processCustomer(@Valid @ModelAttribute("customerDTO") CustomerDTO customer, BindingResult result,
+		ModelMap model) {
+		if (result.hasErrors()) {
+			List<ObjectError> allErrors = result.getAllErrors();
+			for (ObjectError error : allErrors) {
+				System.out.println("Error: " + error.getDefaultMessage());
+			}
+			return "customers_views/customers";
+		}
+		Customers cliente = new Customers();
+		cliente.setFirstName(customer.getFirstName());
+		cliente.setLastName(customer.getLastName());
+		cliente.setBirtdayDate(customer.getFechaNacimiento());
+		cliente.setSex(customer.getGenero());
+		cliente.setRfc(customer.getRfc());
+		cliente.setCurp(customer.getCurp());
+		Map<String, Object> responseCliente = customerService.saveCustomer(cliente);
+		if (Integer.parseInt(responseCliente.get("value").toString()) == 1) {
+			model.addAttribute("customer", cliente);
+		} else {
+			model.addAttribute("description", responseCliente.get("description").toString());
+		}
+		return "customers_views/customers";
+	}
 
 }
