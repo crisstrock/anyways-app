@@ -12,6 +12,7 @@
 <script type="text/javascript" src="<c:url value="/js/bootstrap.js" />"></script>
 </head>
 <body>
+<c:import url ="../header.jsp"/>
 	<div class="container">
 		<h1>Customers</h1>
 	</div>
@@ -69,5 +70,6 @@
 				Cliente</button>
 		</form:form>
 	</div>
+	<c:import url ="../footer.jsp"/>
 </body>
 </html>

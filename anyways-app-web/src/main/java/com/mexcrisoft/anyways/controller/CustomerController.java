@@ -89,9 +89,11 @@ public class CustomerController {
 		cliente.setRfc(customer.getRfc());
 		cliente.setCurp(customer.getCurp());
 		Map<String, Object> responseCliente = customerService.saveCustomer(cliente);
+		customer = null;
 		if (Integer.parseInt(responseCliente.get("value").toString()) == 1) {
-			model.addAttribute("customer", cliente);
+			model.addAttribute("value", 1);
 		} else {
+			model.addAttribute("value", Integer.parseInt(responseCliente.get("value").toString()));
 			model.addAttribute("description", responseCliente.get("description").toString());
 		}
 		return "customers_views/customers";
