@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Configuración de la seguridad
@@ -54,7 +53,7 @@ public class LocalSecurityConfig {
 	 */
 	@Bean(name = "adminSupSecurityFilterChain")
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception, ServletException {
-		http.authorizeHttpRequests()
+		/*http.authorizeHttpRequests()
 			.requestMatchers(new AntPathRequestMatcher("/"))
 			.hasAnyRole("ADMINISTRADOR", "AYUDANTE", "USUARIO")
 			.requestMatchers(new AntPathRequestMatcher("/customers/**"))
@@ -69,7 +68,8 @@ public class LocalSecurityConfig {
 				.usernameParameter("username")
 				.passwordParameter("password")
 				.permitAll())
-			.logout(logout -> logout.permitAll());
+			.logout(logout -> logout.permitAll());*/
+		http.authorizeHttpRequests().anyRequest().permitAll();
 		return http.build();
 	}
 
